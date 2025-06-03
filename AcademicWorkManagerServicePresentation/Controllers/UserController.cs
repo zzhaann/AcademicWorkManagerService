@@ -25,7 +25,4 @@ namespace AcademicWorkManagerService.Presentation.Controllers
             return Ok(result);
         }
     }
-
-
-
 }
