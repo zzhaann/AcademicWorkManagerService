@@ -1,5 +1,6 @@
 ﻿using AcademicWorkManagerService.Application.DTO;
 using AcademicWorkManagerService.Application.Interfaces;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,12 @@ using System.Threading.Tasks;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class GetUsersQueryHandler
+    public class GetUsersQueryHandler(IUserService userService) : IRequestHandler<GetUsersQuery, UserDTO[]>
     {
-        private readonly IUserService _userService;
 
-        public GetUsersQueryHandler(IUserService userService)
+        public async Task<UserDTO[]> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            _userService = userService;
-        }
-
-        public async Task<IEnumerable<UserDTO>> Handle(GetUsersQuery query)
-        {
-            return await _userService.GetAllAsync();
+            return await userService.GetAllAsync();
         }
     }
 }

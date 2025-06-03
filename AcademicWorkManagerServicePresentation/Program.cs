@@ -5,6 +5,8 @@ using AcademicWorkManagerService.Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
+using AcademicWorkManagerService.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
 
-
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

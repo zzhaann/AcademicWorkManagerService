@@ -10,7 +10,7 @@ namespace AcademicWorkManagerService.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserDTO>> GetAllAsync();
+        Task<UserDTO[]> GetAllAsync();
         Task<UserDTO?> GetByIdAsync(int id);
         Task<User> CreateAsync(User user);
     }

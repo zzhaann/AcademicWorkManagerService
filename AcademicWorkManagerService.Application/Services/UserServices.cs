@@ -18,7 +18,7 @@ namespace AcademicWorkManagerService.Application.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<UserDTO>> GetAllAsync()
+        public async Task<UserDTO[]> GetAllAsync()
         {
             return await _context.users
                 .Select(u => new UserDTO
@@ -27,7 +27,7 @@ namespace AcademicWorkManagerService.Application.Services
                     UserName = u.UserName,
                     UserRole = u.UserRole
                 })
-                .ToListAsync();
+                .ToArrayAsync();
         }
 
         public async Task<UserDTO?> GetByIdAsync(int id)

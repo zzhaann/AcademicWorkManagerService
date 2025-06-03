@@ -2,26 +2,19 @@
 using AcademicWorkManagerService.Application.UseCases.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 namespace AcademicWorkManagerService.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(IMediator mediator) : ControllerBase
     {
-
-        private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var handler = new GetUsersQueryHandler(_userService);
-            var result = await handler.Handle(new GetUsersQuery());
+            var result = await mediator.Send(new GetUsersQuery());
             return Ok(result);
         }
     }
