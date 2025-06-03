@@ -1,5 +1,7 @@
 using Npgsql;
 using AcademicWorkManagerService.Infrastructure.Services;
+using AcademicWorkManagerService.Application.Interfaces;
+using AcademicWorkManagerService.Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +20,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUserService, IUserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 

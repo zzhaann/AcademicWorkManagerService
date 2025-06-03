@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AcademicWorkManagerService.Domain\AcademicWorkManagerService.Domain.csproj" />
+    <ProjectReference Include="..\AcademicWorkManagerService.Infrastructure\AcademicWorkManagerService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
