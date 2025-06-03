@@ -1,6 +1,6 @@
-@AcademicWorkManagerServicePresentation_HostAddress = http://localhost:5194
+@AcademicWorkManagerService.Presentation_HostAddress = http://localhost:5194
 
-GET {{AcademicWorkManagerServicePresentation_HostAddress}}/weatherforecast/
+GET {{AcademicWorkManagerService.Presentation_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

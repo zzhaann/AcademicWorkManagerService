@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AcademicWorkManagerServicePresentation.Controllers;
+namespace AcademicWorkManagerService.Presentation.Controllers;
 
 [ApiController]
 [Route("[controller]")]

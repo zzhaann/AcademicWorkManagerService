@@ -1,4 +1,4 @@
-namespace AcademicWorkManagerServicePresentation
+namespace AcademicWorkManagerService.Presentation
 {
     public class WeatherForecast
     {
