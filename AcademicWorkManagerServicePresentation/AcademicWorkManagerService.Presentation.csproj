@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AcademicWorkManagerService.Application\AcademicWorkManagerService.Application.csproj" />
+    <ProjectReference Include="..\AcademicWorkManagerService.Domain\AcademicWorkManagerService.Domain.csproj" />
+    <ProjectReference Include="..\AcademicWorkManagerService.Infrastructure\AcademicWorkManagerService.Infrastructure.csproj" />
     <ProjectReference Include="..\AcademicWorkManagerServiceApplication\AcademicWorkManagerService.Application.csproj" />
     <ProjectReference Include="..\AcademicWorkManagerServiceInfrastructure\AcademicWorkManagerService.Infrastructure.csproj" />
   </ItemGroup>
