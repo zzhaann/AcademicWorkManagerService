@@ -1,0 +1,6 @@
+@AcademicWorkManagerServicePresentation_HostAddress = http://localhost:5194
+
+GET {{AcademicWorkManagerServicePresentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
