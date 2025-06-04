@@ -7,14 +7,16 @@ using MediatR;
 namespace AcademicWorkManagerService.Presentation.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class UserController(IMediator mediator) : ControllerBase
+    public class UserController(IMediator mediator) : BaseController
     {
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var result = await mediator.Send(new GetUsersQuery());
+            if (result.IsFailed)
+                return GenerateProblemResponse(result.Error);
+            
             return Ok(result);
         }
     }

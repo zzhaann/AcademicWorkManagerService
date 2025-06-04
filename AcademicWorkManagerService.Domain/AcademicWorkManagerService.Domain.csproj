@@ -10,4 +10,8 @@
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="KDS.Primitives.FluentResult" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
