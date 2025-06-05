@@ -29,9 +29,9 @@ namespace AcademicWorkManagerService.Application.Services
 
             var userDtos = users.Select(u => new UserDTO
             {
-                Id = u.Id,
-                UserName = u.UserName,
-                UserRole = u.UserRole
+                id = u.id,
+                userName = u.userName,
+                userRole = u.userRole
             }).ToArray();
 
             return userDtos;
@@ -48,9 +48,28 @@ namespace AcademicWorkManagerService.Application.Services
 
             var userDto = new UserDTO
             {
-                Id = user.Id,
-                UserName = user.UserName,
-                UserRole = user.UserRole
+                id = user.id,
+                userName = user.userName,
+                userRole = user.userRole
+            };
+
+            return userDto;
+        }
+
+        public async Task<Result<UserDTO?>> GetByUsernameAsync(string username)
+        {
+            var user = await _unitOfWork.Users.GetByUsernameAsync(username);
+
+            if (user == null)
+            {
+                return Result.Failure<UserDTO?>(new Error(ErrorCode.NotFound, $"Пользователь с именем {username} не найден."));
+            }
+
+            var userDto = new UserDTO
+            {
+                id = user.id,
+                userName = user.userName,
+                userRole = user.userRole
             };
 
             return userDto;
@@ -58,7 +77,7 @@ namespace AcademicWorkManagerService.Application.Services
 
         public async Task<Result<UserDTO>> CreateAsync(UserDTO userDto)
         {
-            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.UserName);
+            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.userName);
             if (existingUser != null)
             {
                 return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
@@ -66,31 +85,40 @@ namespace AcademicWorkManagerService.Application.Services
 
             var user = new User
             {
-                UserName = userDto.UserName,
-                UserRole = userDto.UserRole
+                userName = userDto.userName,
+                userRole = userDto.userRole
             };
 
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
-            userDto.Id = user.Id;
+            userDto.id = user.id;
             return userDto;
         }
 
-        public async Task<UserDTO?> GetByIdAsync(int id)
+        public async Task<Result<UserDTO>> UpdateAsync(int id, UserDTO userDto)
         {
-            
-            var user = await _context.users
-                .Where(u => u.Id == (int)id)
-                .Select(u => new UserDTO
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    UserRole = u.UserRole
-                })
-                .FirstOrDefaultAsync();
+            var user = await _unitOfWork.Users.GetByIdAsync(id);
 
-            userDto.Id = user.Id;
+            if (user == null)
+            {
+                return Result.Failure<UserDTO>(new Error(ErrorCode.NotFound, $"Пользователь с ID {id} не найден."));
+            }
+
+
+            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.userName);
+            if (existingUser != null && existingUser.id != id)
+            {
+                return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
+            }
+
+            user.userName = userDto.userName;
+            user.userRole = userDto.userRole;
+
+            await _unitOfWork.Users.UpdateAsync(user);
+            await _unitOfWork.SaveChangesAsync();
+
+            userDto.id = user.id;
             return userDto;
         }
 
