@@ -18,7 +18,7 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
         {
             var result = await userService.GetAllAsync();
             
-            if (result.Length == 0)
+            if (result.IsFailed)
                 return Result.Failure<UserDTO[]>(new Error(ErrorCode.NotFound, "Пользователей нет."));
 
             return result;

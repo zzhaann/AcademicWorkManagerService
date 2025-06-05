@@ -21,8 +21,10 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AcademicWorkManagerService.Domain\AcademicWorkManagerService.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AcademicWorkManagerService.Application\AcademicWorkManagerService.Application.csproj" />
+		<ProjectReference Include="..\AcademicWorkManagerService.Domain\AcademicWorkManagerService.Domain.csproj" />
+	</ItemGroup>
+
 
 </Project>
