@@ -8,9 +8,10 @@ namespace AcademicWorkManagerService.Domain.Entities
 {
     public class User
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
-        public string UserName { get; set; }
-        public string UserRole { get; set; }    
+        public string userName { get; set; } 
+        public string userRole { get; set; } 
+
     }
 }

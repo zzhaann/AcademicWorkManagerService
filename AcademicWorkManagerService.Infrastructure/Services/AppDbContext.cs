@@ -14,5 +14,9 @@ namespace AcademicWorkManagerService.Infrastructure.Services
         {
         }
         public DbSet<User> users { get; set; }
+        public DbSet<Theme> themes { get; set; }
+        public DbSet<Diploma> diplomas { get; set; }
+        public DbSet<Files> files { get; set; }
+
     }
 }

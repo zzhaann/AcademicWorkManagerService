@@ -23,9 +23,9 @@ namespace AcademicWorkManagerService.Application.Services
             return await _context.users
                 .Select(u => new UserDTO
                 {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    UserRole = u.UserRole
+                    Id = u.id,
+                    UserName = u.userName,
+                    UserRole = u.userRole
                 })
                 .ToArrayAsync();
         }
@@ -34,12 +34,12 @@ namespace AcademicWorkManagerService.Application.Services
         {
             
             var user = await _context.users
-                .Where(u => u.Id == (int)id)
+                .Where(u => u.id == (int)id)
                 .Select(u => new UserDTO
                 {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    UserRole = u.UserRole
+                    Id = u.id,
+                    UserName = u.userName,
+                    UserRole = u.userRole
                 })
                 .FirstOrDefaultAsync();
 
