@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class UpdateUserQuery : IRequest<Result<UserDTO>>
+    public class UpdateUserCommand : IRequest<Result<UserDTO>>
     {
         [JsonIgnore]
         public int Id { get; set; }

@@ -4,10 +4,10 @@ using MediatR;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class DeleteUserQueryHandler(IUserService userService)
-        : IRequestHandler<DeleteUserQuery, Result<bool>>
+    public class DeleteUserCommandHandler(IUserService userService)
+        : IRequestHandler<DeleteUserCommand, Result<bool>>
     {
-        public async Task<Result<bool>> Handle(DeleteUserQuery request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var result = await userService.DeleteAsync(request.Id);
 
