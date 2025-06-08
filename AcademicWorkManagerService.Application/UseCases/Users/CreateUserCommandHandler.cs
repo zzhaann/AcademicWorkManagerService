@@ -12,8 +12,8 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
         {
             var userDto = new UserDTO
             {
-                userName = request.UserName,
-                userRole = request.UserRole
+                UserName = request.UserName,
+                UserRole = request.UserRole
             };
 
             var result = await userService.CreateAsync(userDto);

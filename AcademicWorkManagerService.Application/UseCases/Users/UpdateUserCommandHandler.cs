@@ -12,9 +12,9 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
         {
             var userDto = new UserDTO
             {
-                id = request.Id,
-                userName = request.UserName,
-                userRole = request.UserRole
+                Id = request.Id,
+                UserName = request.UserName,
+                UserRole = request.UserRole
             };
 
             var result = await userService.UpdateAsync(request.Id, userDto);

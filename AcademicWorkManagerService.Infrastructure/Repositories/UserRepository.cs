@@ -14,8 +14,8 @@ namespace AcademicWorkManagerService.Infrastructure.Repositories
 
         public async Task<User?> GetByUsernameAsync(string username)
         {
-            return await _context.users
-                .FirstOrDefaultAsync(u => u.userName == username);
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.UserName == username);
         }
     }
 }

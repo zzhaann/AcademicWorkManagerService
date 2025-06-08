@@ -13,10 +13,10 @@ namespace AcademicWorkManagerService.Infrastructure.Services
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        public DbSet<User> users { get; set; }
-        public DbSet<Theme> themes { get; set; }
-        public DbSet<Diploma> diplomas { get; set; }
-        public DbSet<Files> files { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Theme> Themes { get; set; }
+        public DbSet<Diploma> Diplomas { get; set; }
+        public DbSet<Files> Files { get; set; }
 
     }
 }

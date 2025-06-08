@@ -42,7 +42,7 @@ namespace AcademicWorkManagerService.Presentation.Controllers
             var result = await mediator.Send(command);
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
-            return CreatedAtAction(nameof(GetById), new { id = result.Value.id }, result.Value);
+            return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)

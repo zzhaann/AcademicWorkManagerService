@@ -29,9 +29,9 @@ namespace AcademicWorkManagerService.Application.Services
 
             var userDtos = users.Select(u => new UserDTO
             {
-                id = u.id,
-                userName = u.userName,
-                userRole = u.userRole
+                Id = u.Id,
+                UserName = u.UserName,
+                UserRole = u.UserRole
             }).ToArray();
 
             return userDtos;
@@ -48,9 +48,9 @@ namespace AcademicWorkManagerService.Application.Services
 
             var userDto = new UserDTO
             {
-                id = user.id,
-                userName = user.userName,
-                userRole = user.userRole
+                Id = user.Id,
+                UserName = user.UserName,
+                UserRole = user.UserRole
             };
 
             return userDto;
@@ -67,9 +67,9 @@ namespace AcademicWorkManagerService.Application.Services
 
             var userDto = new UserDTO
             {
-                id = user.id,
-                userName = user.userName,
-                userRole = user.userRole
+                Id = user.Id,
+                UserName = user.UserName,
+                UserRole = user.UserRole
             };
 
             return userDto;
@@ -77,7 +77,7 @@ namespace AcademicWorkManagerService.Application.Services
 
         public async Task<Result<UserDTO>> CreateAsync(UserDTO userDto)
         {
-            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.userName);
+            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.UserName);
             if (existingUser != null)
             {
                 return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
@@ -85,14 +85,14 @@ namespace AcademicWorkManagerService.Application.Services
 
             var user = new User
             {
-                userName = userDto.userName,
-                userRole = userDto.userRole
+                UserName = userDto.UserName,
+                UserRole = userDto.UserRole
             };
 
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
-            userDto.id = user.id;
+            userDto.Id = user.Id;
             return userDto;
         }
 
@@ -106,19 +106,19 @@ namespace AcademicWorkManagerService.Application.Services
             }
 
 
-            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.userName);
-            if (existingUser != null && existingUser.id != id)
+            var existingUser = await _unitOfWork.Users.GetByUsernameAsync(userDto.UserName);
+            if (existingUser != null && existingUser.Id != id)
             {
                 return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
             }
 
-            user.userName = userDto.userName;
-            user.userRole = userDto.userRole;
+            user.UserName = userDto.UserName;
+            user.UserRole = userDto.UserRole;
 
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
-            userDto.id = user.id;
+            userDto.Id = user.Id;
             return userDto;
         }
 
