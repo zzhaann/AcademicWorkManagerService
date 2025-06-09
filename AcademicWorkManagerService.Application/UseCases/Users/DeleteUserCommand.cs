@@ -3,5 +3,5 @@ using MediatR;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public record DeleteUserQuery(int Id) : IRequest<Result<bool>>;
+    public record DeleteUserCommand(int Id) : IRequest<Result<bool>>;
 }

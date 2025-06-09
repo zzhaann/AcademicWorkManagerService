@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    class GetUserByIdQueryHandler(IUserService userService) : IRequestHandler<GetUserByIdQuery, Result<UserDTO>>
+    public class GetUserByIdQueryHandler(IUserService userService) : IRequestHandler<GetUserByIdQuery, Result<UserDTO?>>
     {
         public async Task<Result<UserDTO?>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {

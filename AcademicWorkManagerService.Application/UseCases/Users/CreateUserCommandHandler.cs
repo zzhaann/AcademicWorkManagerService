@@ -5,15 +5,15 @@ using MediatR;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class CreateUserQueryHandler(IUserService userService)
-        : IRequestHandler<CreateUserQuery, Result<UserDTO>>
+    public class CreateUserCommandHandler(IUserService userService)
+        : IRequestHandler<CreateUserCommand, Result<UserDTO>>
     {
-        public async Task<Result<UserDTO>> Handle(CreateUserQuery request, CancellationToken cancellationToken)
+        public async Task<Result<UserDTO>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var userDto = new UserDTO
             {
-                userName = request.UserName,
-                userRole = request.UserRole
+                UserName = request.UserName,
+                UserRole = request.UserRole
             };
 
             var result = await userService.CreateAsync(userDto);

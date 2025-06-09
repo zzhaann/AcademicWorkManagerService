@@ -37,30 +37,29 @@ namespace AcademicWorkManagerService.Presentation.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateUserQuery command)
+        public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
             var result = await mediator.Send(command);
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
-            return CreatedAtAction(nameof(GetById), new { id = result.Value.id }, result.Value);
+            return CreatedAtAction(nameof(GetById), new { id = result.Value.Id }, result.Value);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateUserQuery command)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)
         {
-            if (id != command.Id)
-                return BadRequest("User ID mismatch");
+            command.Id = id;
             var result = await mediator.Send(command);
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
-            return NoContent();
+            return Ok(result);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await mediator.Send(new DeleteUserQuery(id));
+            var result = await mediator.Send(new DeleteUserCommand(id));
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
-            return NoContent();
+            return Ok(result);
         }
     }
 }

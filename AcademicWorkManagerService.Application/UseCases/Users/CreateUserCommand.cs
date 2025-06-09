@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class CreateUserQuery : IRequest<Result<UserDTO>>
+    public class CreateUserCommand : IRequest<Result<UserDTO>>
     {
         [JsonPropertyName("userName")]
         public string UserName { get; set; } = string.Empty;
