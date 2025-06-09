@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AcademicWorkManagerService.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250609061402_FixTableNames")]
-    partial class FixTableNames
+    [Migration("20250609133715_firstInit")]
+    partial class firstInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,21 +88,25 @@ namespace AcademicWorkManagerService.Infrastructure.Migrations
 
             modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("userName")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("userRole")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("id");
+                    b.Property<string>("UserRole")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });

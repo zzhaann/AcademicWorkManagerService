@@ -91,6 +91,10 @@ namespace AcademicWorkManagerService.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
