@@ -14,7 +14,7 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
             {
                 UserName = request.UserName,
                 RoleId = request.RoleId,
-                RoleName = string.Empty // This will be populated from the database
+                RoleName = string.Empty
             };
 
             var result = await userService.CreateAsync(userDto);

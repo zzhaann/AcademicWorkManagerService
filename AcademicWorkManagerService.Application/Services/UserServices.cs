@@ -20,7 +20,6 @@ namespace AcademicWorkManagerService.Application.Services
 
         public async Task<Result<UserDTO[]>> GetAllAsync()
         {
-            // Make sure to include the Role relationship when fetching users
             var users = await _unitOfWork.Users.GetAllWithRolesAsync();
 
             if (!users.Any())
@@ -41,7 +40,6 @@ namespace AcademicWorkManagerService.Application.Services
 
         public async Task<Result<UserDTO?>> GetByIdAsync(int id)
         {
-            // Make sure to include the Role relationship when fetching a user by ID
             var user = await _unitOfWork.Users.GetByIdWithRoleAsync(id);
 
             if (user == null)
@@ -62,7 +60,6 @@ namespace AcademicWorkManagerService.Application.Services
 
         public async Task<Result<UserDTO?>> GetByUsernameAsync(string username)
         {
-            // Make sure to include the Role relationship when fetching a user by username
             var user = await _unitOfWork.Users.GetByUsernameWithRoleAsync(username);
 
             if (user == null)
@@ -89,7 +86,6 @@ namespace AcademicWorkManagerService.Application.Services
                 return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
             }
 
-            // Check if the role exists
             var role = await _unitOfWork.Roles.GetByIdAsync(userDto.RoleId);
             if (role == null)
             {
@@ -105,7 +101,6 @@ namespace AcademicWorkManagerService.Application.Services
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
-            // Get the newly created user with the role
             var createdUser = await _unitOfWork.Users.GetByIdWithRoleAsync(user.Id);
             if (createdUser == null)
             {
@@ -133,7 +128,6 @@ namespace AcademicWorkManagerService.Application.Services
                 return Result.Failure<UserDTO>(new Error(ErrorCode.Conflict, "Пользователь с таким именем уже существует."));
             }
 
-            // Check if the role exists
             var role = await _unitOfWork.Roles.GetByIdAsync(userDto.RoleId);
             if (role == null)
             {
@@ -146,7 +140,6 @@ namespace AcademicWorkManagerService.Application.Services
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
-            // Get the updated user with the role
             var updatedUser = await _unitOfWork.Users.GetByIdWithRoleAsync(id);
             if (updatedUser == null)
             {
