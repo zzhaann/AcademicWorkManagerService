@@ -1,25 +1,18 @@
-﻿// AcademicWorkManagerServicePresentation/Controllers/AuthController.cs
-using AcademicWorkManagerService.Application.DTO;
-using AcademicWorkManagerService.Application.Interfaces;
+﻿using AcademicWorkManagerService.Application.DTO;
+using AcademicWorkManagerService.Application.UseCases.Auth;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace AcademicWorkManagerService.Presentation.Controllers
 {
     [Route("api/[controller]")]
-    public class AuthController : BaseController
+    public class AuthController(IMediator mediator) : BaseController
     {
-        private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
-        {
-            _authService = authService;
-        }
-
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
-            var result = await _authService.LoginAsync(loginDto);
+            var result = await mediator.Send(command);
 
             if (result.IsFailed)
             {
@@ -30,9 +23,9 @@ namespace AcademicWorkManagerService.Presentation.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDTO registerDto)
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
-            var result = await _authService.RegisterAsync(registerDto);
+            var result = await mediator.Send(command);
 
             if (result.IsFailed)
             {
