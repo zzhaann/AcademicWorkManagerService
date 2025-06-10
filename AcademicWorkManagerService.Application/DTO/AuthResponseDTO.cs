@@ -10,7 +10,8 @@ namespace AcademicWorkManagerService.Application.DTO
     {
         public string Token { get; set; } = null!;
         public string UserName { get; set; } = null!;
-        public string UserRole { get; set; } = null!;
+        public int RoleId { get; set; }
+        public string RoleName { get; set; } = null!;
         public int UserId { get; set; }
     }
 }

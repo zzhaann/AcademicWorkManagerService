@@ -10,7 +10,7 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
         [JsonPropertyName("userName")]
         public string UserName { get; set; } = string.Empty;
 
-        [JsonPropertyName("userRole")]
-        public string UserRole { get; set; } = string.Empty;
+        [JsonPropertyName("roleId")]
+        public int RoleId { get; set; }
     }
 }

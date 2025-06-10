@@ -1,19 +1,14 @@
 ﻿using AcademicWorkManagerService.Application.DTO;
 using KDS.Primitives.FluentResult;
 using MediatR;
-using System.Text.Json.Serialization;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class UpdateUserCommand : IRequest<Result<UserDTO>>
+    public record UpdateUserCommand : IRequest<Result<UserDTO>>
     {
-        [JsonIgnore]
-        public int Id { get; set; }
-
-        [JsonPropertyName("userName")]
-        public string UserName { get; set; } = string.Empty;
-
-        [JsonPropertyName("userRole")]
-        public string UserRole { get; set; } = string.Empty;
+        public int Id { get; init; }
+        public string UserName { get; init; } = null!;
+        public int RoleId { get; init; }
+        public string RoleName { get; init; } = null!;
     }
 }

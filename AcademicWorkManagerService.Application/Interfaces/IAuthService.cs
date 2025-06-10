@@ -1,6 +1,5 @@
 using AcademicWorkManagerService.Application.DTO;
 using KDS.Primitives.FluentResult;
-using System.Threading.Tasks;
 
 namespace AcademicWorkManagerService.Application.Interfaces
 {

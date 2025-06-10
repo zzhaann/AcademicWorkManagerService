@@ -66,6 +66,60 @@ namespace AcademicWorkManagerService.Infrastructure.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Student"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Supervisor"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Department"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Manager"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Expert"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "ViceRector"
+                        });
+                });
+
             modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.Theme", b =>
                 {
                     b.Property<int>("Id")
@@ -95,15 +149,16 @@ namespace AcademicWorkManagerService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -138,9 +193,25 @@ namespace AcademicWorkManagerService.Infrastructure.Migrations
                     b.Navigation("Diploma");
                 });
 
+            modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.User", b =>
+                {
+                    b.HasOne("AcademicWorkManagerService.Domain.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.Diploma", b =>
                 {
                     b.Navigation("Files");
+                });
+
+            modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("AcademicWorkManagerService.Domain.Entities.Theme", b =>

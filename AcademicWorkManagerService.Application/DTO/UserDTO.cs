@@ -9,8 +9,8 @@ namespace AcademicWorkManagerService.Application.DTO
    public class UserDTO
     {
         public int Id { get; set; }
-
         public string UserName { get; set; } = null!;
-        public string UserRole { get; set; } = null!;
+        public int RoleId { get; set; }
+        public string RoleName { get; set; } = null!;
     }
 }

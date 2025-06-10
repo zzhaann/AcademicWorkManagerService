@@ -13,7 +13,8 @@ namespace AcademicWorkManagerService.Application.UseCases.Users
             var userDto = new UserDTO
             {
                 UserName = request.UserName,
-                UserRole = request.UserRole
+                RoleId = request.RoleId,
+                RoleName = string.Empty // This will be populated from the database
             };
 
             var result = await userService.CreateAsync(userDto);

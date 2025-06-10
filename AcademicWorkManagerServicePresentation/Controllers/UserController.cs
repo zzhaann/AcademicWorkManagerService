@@ -1,11 +1,11 @@
-﻿using AcademicWorkManagerService.Application.Interfaces;
-using AcademicWorkManagerService.Application.UseCases.Users;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using AcademicWorkManagerService.Application.UseCases.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicWorkManagerService.Presentation.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UserController(IMediator mediator) : BaseController
     {
@@ -47,10 +47,12 @@ namespace AcademicWorkManagerService.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateUserCommand command)
         {
-            command.Id = id;
-            var result = await mediator.Send(command);
+            var updatedCommand = command with { Id = id };
+            var result = await mediator.Send(updatedCommand);
+            
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
+            
             return Ok(result);
         }
         [HttpDelete("{id}")]

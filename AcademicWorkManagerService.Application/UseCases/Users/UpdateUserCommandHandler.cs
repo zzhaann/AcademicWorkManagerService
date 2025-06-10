@@ -5,16 +5,23 @@ using MediatR;
 
 namespace AcademicWorkManagerService.Application.UseCases.Users
 {
-    public class UpdateUserCommandHandler(IUserService userService)
-        : IRequestHandler<UpdateUserCommand, Result<UserDTO>>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Result<UserDTO>>
     {
+        private readonly IUserService userService;
+
+        public UpdateUserCommandHandler(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public async Task<Result<UserDTO>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var userDto = new UserDTO
             {
                 Id = request.Id,
                 UserName = request.UserName,
-                UserRole = request.UserRole
+                RoleId = request.RoleId,
+                RoleName = request.RoleName
             };
 
             var result = await userService.UpdateAsync(request.Id, userDto);

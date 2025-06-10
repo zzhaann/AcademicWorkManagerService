@@ -1,16 +1,13 @@
-﻿// AcademicWorkManagerService.Application/Services/AuthService.cs
-using AcademicWorkManagerService.Application.DTO;
+﻿using AcademicWorkManagerService.Application.DTO;
 using AcademicWorkManagerService.Application.Interfaces;
 using AcademicWorkManagerService.Domain.Constants;
 using AcademicWorkManagerService.Domain.Entities;
 using KDS.Primitives.FluentResult;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
 namespace AcademicWorkManagerService.Application.Services
@@ -48,7 +45,8 @@ namespace AcademicWorkManagerService.Application.Services
             {
                 Token = token,
                 UserName = user.UserName,
-                UserRole = user.UserRole,
+                RoleId = user.RoleId,
+                RoleName = user.Role?.Name ?? string.Empty,
                 UserId = user.Id
             };
         }
@@ -67,7 +65,7 @@ namespace AcademicWorkManagerService.Application.Services
             var user = new User
             {
                 UserName = registerDto.UserName,
-                UserRole = registerDto.UserRole,
+                RoleId = registerDto.RoleId,
                 PasswordHash = passwordHash
             };
 
@@ -80,7 +78,8 @@ namespace AcademicWorkManagerService.Application.Services
             {
                 Token = token,
                 UserName = user.UserName,
-                UserRole = user.UserRole,
+                RoleId = user.RoleId,
+                RoleName = user.Role?.Name ?? string.Empty,
                 UserId = user.Id
             };
         }
@@ -96,7 +95,7 @@ namespace AcademicWorkManagerService.Application.Services
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, user.UserRole)
+                    new Claim(ClaimTypes.Role, user.Role?.Name ?? string.Empty)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
