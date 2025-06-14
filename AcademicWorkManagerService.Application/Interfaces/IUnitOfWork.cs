@@ -7,6 +7,8 @@ namespace AcademicWorkManagerService.Application.Interfaces
     {
         IUserRepository Users { get; }
         IRoleRepository Roles { get; }
+        
+        IThemeRepository Themes { get; }
         Task<int> SaveChangesAsync();
     }
 }

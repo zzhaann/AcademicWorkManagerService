@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace AcademicWorkManagerService.Domain.Entities
 {
-    public class Files
+    public class Department
     {
         public int Id { get; set; }
-        public byte[] Data { get; set; } = null!;
+        public string DepartmentName { get; set; }
 
-        public int DiplomaId { get; set; }
-        public Diploma Diploma { get; set; } = null!;
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }

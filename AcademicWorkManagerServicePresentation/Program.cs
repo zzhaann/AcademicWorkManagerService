@@ -34,7 +34,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IThemeService, ThemeService>();
+builder.Services.AddScoped<IThemeRepository, ThemeRepository>();
 builder.Services.AddApplicationServices();
 #endregion
 
