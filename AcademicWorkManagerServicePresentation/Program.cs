@@ -1,17 +1,10 @@
-using Npgsql;
-using AcademicWorkManagerService.Infrastructure.Services;
-using AcademicWorkManagerService.Application.Interfaces;
-using AcademicWorkManagerService.Application.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Reflection;
 using AcademicWorkManagerService.Application;
-using AcademicWorkManagerService.Infrastructure.Repositories;
+using AcademicWorkManagerService.Domain;
+using AcademicWorkManagerService.Domain.Options;
+using AcademicWorkManagerService.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AcademicWorkManagerService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +14,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register services
+builder.Services.AddDomainServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
+
+builder.Services.Configure<JwtConfigurationOptions>(
+    builder.Configuration.GetSection("JwtConfigurationOptions"));
 
 #region Auth+JWT
 builder.Services.AddAuthentication(options =>
@@ -39,10 +36,10 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["JwtConfigurationOptions:Issuer"],
+        ValidAudience = builder.Configuration["JwtConfigurationOptions:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-        builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured")))
+        builder.Configuration["JwtConfigurationOptions:Key"]!))
     };
 });
 

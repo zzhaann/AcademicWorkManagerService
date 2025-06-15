@@ -2,8 +2,10 @@
 using AcademicWorkManagerService.Application.Interfaces;
 using AcademicWorkManagerService.Domain.Constants;
 using AcademicWorkManagerService.Domain.Entities;
+using AcademicWorkManagerService.Domain.Options;
 using KDS.Primitives.FluentResult;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,12 +17,12 @@ namespace AcademicWorkManagerService.Application.Services
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _configuration;
+        private readonly JwtConfigurationOptions _jwtOptions;
 
-        public AuthService(IUnitOfWork unitOfWork, IConfiguration configuration)
+        public AuthService(IUnitOfWork unitOfWork, IOptions<JwtConfigurationOptions> jwtOptions)
         {
             _unitOfWork = unitOfWork;
-            _configuration = configuration;
+            _jwtOptions = jwtOptions.Value;
         }
 
         public async Task<Result<AuthResponseDTO>> LoginAsync(LoginDTO loginDto)
@@ -87,20 +89,20 @@ namespace AcademicWorkManagerService.Application.Services
         private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured"));
+            var key = Encoding.ASCII.GetBytes(_jwtOptions.Key ?? throw new InvalidOperationException("JWT key is not configured"));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Role?.Name ?? string.Empty)
-                }),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, user.Role?.Name ?? string.Empty)
+            }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"]
+                Issuer = _jwtOptions.Issuer,
+                Audience = _jwtOptions.Audience
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
