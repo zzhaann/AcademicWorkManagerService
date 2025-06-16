@@ -18,7 +18,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Not Found",
-                    Detail = "Нету данных",
+                    Detail = error.Message ?? "Нет данных",
                     Status = 404
                 };
                 break;
@@ -26,7 +26,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Bad Request",
-                    Detail = "Неправильный запрос",
+                    Detail = error.Message ?? "Неправильный запрос",
                     Status = 400
                 };
                 break;
@@ -34,7 +34,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Unauthorized",
-                    Detail = "Не авторизован",
+                    Detail = error.Message ?? "Не авторизован",
                     Status = 401
                 };
                 break;
@@ -42,7 +42,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Forbidden",
-                    Detail = "Доступ запрещён",
+                    Detail = error.Message ?? "Доступ запрещён",
                     Status = 403
                 };
                 break;
@@ -50,7 +50,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Conflict",
-                    Detail = "Конфликт данных",
+                    Detail = error.Message ?? "Конфликт данных",
                     Status = 409
                 };
                 break;
@@ -58,7 +58,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Validation Error",
-                    Detail = "Ошибка валидации",
+                    Detail = error.Message ?? "Ошибка валидации",
                     Status = 422
                 };
                 break;
@@ -66,7 +66,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Unprocessable Entity",
-                    Detail = "Невозможно обработать сущность",
+                    Detail = error.Message ?? "Невозможно обработать сущность",
                     Status = 422
                 };
                 break;
@@ -74,7 +74,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Too Many Requests",
-                    Detail = "Слишком много запросов",
+                    Detail = error.Message ?? "Слишком много запросов",
                     Status = 429
                 };
                 break;
@@ -82,7 +82,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Service Unavailable",
-                    Detail = "Сервис недоступен",
+                    Detail = error.Message ?? "Сервис недоступен",
                     Status = 503
                 };
                 break;
@@ -90,7 +90,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Internal Server Error",
-                    Detail = "Внутренняя ошибка сервера",
+                    Detail = error.Message ?? "Внутренняя ошибка сервера",
                     Status = 500
                 };
                 break;
@@ -98,7 +98,7 @@ public class BaseController : ControllerBase
                 problemDetails = new ProblemDetails
                 {
                     Title = "Error",
-                    Detail = "Неизвестная ошибка",
+                    Detail = error.Message ?? "Неизвестная ошибка",
                     Status = 500
                 };
                 break;
@@ -106,6 +106,7 @@ public class BaseController : ControllerBase
 
         return StatusCode(problemDetails.Status ?? 500, problemDetails);
     }
+
 
 
 }

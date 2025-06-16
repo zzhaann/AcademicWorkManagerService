@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AcademicWorkManagerService.Application.Interfaces;
+using AcademicWorkManagerService.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace AcademicWorkManagerService.Application
@@ -8,6 +10,11 @@ namespace AcademicWorkManagerService.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly));
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IThemeService, ThemeService>();
+            services.AddScoped<IStudentAloneService, StudentAloneService>();
             return services;
         }
     }

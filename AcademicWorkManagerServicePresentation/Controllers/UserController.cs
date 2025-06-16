@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicWorkManagerService.Presentation.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class UserController(IMediator mediator) : BaseController
     {

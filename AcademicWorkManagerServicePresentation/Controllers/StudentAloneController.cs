@@ -36,7 +36,7 @@ namespace AcademicWorkManagerService.Presentation.Controllers
             if (result.IsFailed)
                 return GenerateProblemResponse(result.Error);
 
-            return Created(string.Empty, result.Value); // можно заменить на CreatedAtAction при наличии GetById
+            return Created(string.Empty, result.Value); 
         }
 
         [HttpPut("{id}")]
