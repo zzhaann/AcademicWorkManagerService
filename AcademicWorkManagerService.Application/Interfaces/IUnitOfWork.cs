@@ -9,6 +9,8 @@ namespace AcademicWorkManagerService.Application.Interfaces
         IRoleRepository Roles { get; }
         
         IThemeRepository Themes { get; }
+
+        IStudentAloneRepository StudentAlone { get; }
         Task<int> SaveChangesAsync();
     }
 }

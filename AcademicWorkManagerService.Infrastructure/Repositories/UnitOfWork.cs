@@ -10,7 +10,7 @@ namespace AcademicWorkManagerService.Infrastructure.Repositories
         private IUserRepository _userRepository;
         private IRoleRepository _roleRepository;
         private IThemeRepository _themeRepository;
-
+        private IStudentAloneRepository _studentAloneRepository;
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
@@ -21,6 +21,7 @@ namespace AcademicWorkManagerService.Infrastructure.Repositories
         public IRoleRepository Roles => _roleRepository ??= new RoleRepository(_context);
         public IThemeRepository Themes => _themeRepository ??= new ThemeRepository(_context);
 
+        public IStudentAloneRepository StudentAlone => _studentAloneRepository ??= new StudentAloneRepository(_context);
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
